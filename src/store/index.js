@@ -27,7 +27,7 @@ export default createStore({
     ],
   },
   getters: {
-    GET_NODE_OF_TREE: (state) => {
+    GET_TREE_NODE: (state) => {
       return state.treeNodes;
     },
   },
