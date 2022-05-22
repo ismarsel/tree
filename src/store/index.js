@@ -25,13 +25,26 @@ export default createStore({
       },
       { name: "File 2" },
     ],
+    newName: "",
   },
   getters: {
     GET_TREE_NODE: (state) => {
       return state.treeNodes;
     },
   },
-  mutations: {},
-  actions: {},
-  modules: {},
+  mutations: {
+    DELETE_NODE(state, node) {
+      state.treeNodes = () => {
+        const buff = [];
+        for (let element of state.treeNodes) {
+          
+        }
+      };
+    },
+  },
+  actions: {
+    DELETE_NODE({ commit }, node) {
+      commit("DELETE_NODE", node);
+    },
+  },
 });

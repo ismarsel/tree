@@ -41,4 +41,11 @@ ul {
 
 .node-list {
   margin: 0 auto;
+  &__item {
+    margin-bottom: 1em;
+    & > ul {
+    margin-top: 1em;
+    }
+  }
+ 
 }

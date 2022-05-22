@@ -4,7 +4,9 @@
       {{ node.name }}
       <div class="item__icons">
         <span class="item__icons--rename">/</span>
-        <span class="item__icons--delete">X</span>
+        <span @click="DELETE_NODE(node.name)" class="item__icons--delete">
+          X
+        </span>
       </div>
     </div>
     <ul v-if="node.children && node.children.length">
@@ -18,13 +20,11 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "NodeItem",
   data() {
-    return {
-      isOpen: false,
-    };
+    return {};
   },
   props: {
     node: {
@@ -32,11 +32,9 @@ export default {
       required: true,
     },
   },
-  computed: {
-    ...mapState(["treeNodes"]),
-    isFolder() {
-      return this.isOpen;
-    },
+  computed: {},
+  methods: {
+    ...mapActions(["DELETE_NODE"]),
   },
 };
 </script>
@@ -50,10 +48,17 @@ export default {
     align-items: center;
   }
   &__icons {
-    width: 40px;
+    width: 55px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
+    & > span {
+      width: 25px;
+      height: 25px;
+      text-align: center;
+      border: 1px #000 solid;
+    }
   }
 }
 </style>
