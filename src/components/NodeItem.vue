@@ -3,10 +3,8 @@
     <div class="item__content">
       {{ node.name }}
       <div class="item__icons">
-        <span class="item__icons--rename">/</span>
-        <span @click="DELETE_NODE(node.name)" class="item__icons--delete">
-          X
-        </span>
+        <span @click="inputOpenClose()" class="item__icons--rename">/</span>
+        <span @click="DELETE_NODE()" class="item__icons--delete">X</span>
       </div>
     </div>
     <ul v-if="node.children && node.children.length">
@@ -24,7 +22,9 @@ import { mapActions } from "vuex";
 export default {
   name: "NodeItem",
   data() {
-    return {};
+    return {
+      openClose: false,
+    };
   },
   props: {
     node: {
@@ -34,7 +34,7 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapActions(["DELETE_NODE"]),
+    ...mapActions(["DELETE_NODE", "inputOpenClose"]),
   },
 };
 </script>

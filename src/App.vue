@@ -8,20 +8,29 @@
       />
     </node-list>
   </div>
+  <rename-input
+    v-if="GET_INPUT_VISIBLE"
+    @keypress.enter="SET_NEW_NAME($event.target.value)"
+  />
 </template>
 
 <script>
 import NodeList from "@/components/NodeList.vue";
 import NodeItem from "@/components/NodeItem.vue";
-import { mapGetters } from "vuex";
+import RenameInput from "@/components/RenameInput.vue";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   components: {
     NodeList,
     NodeItem,
+    RenameInput,
   },
   computed: {
-    ...mapGetters(["GET_TREE_NODE"]),
+    ...mapGetters(["GET_TREE_NODE", "GET_INPUT_VISIBLE"]),
+  },
+  methods: {
+    ...mapActions(["SET_NEW_NAME"]),
   },
 };
 </script>
@@ -32,6 +41,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 20px;
 }
 </style>
