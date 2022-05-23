@@ -1,15 +1,30 @@
 <template>
   <div @click.self="SHOW_INPUT" class="overlay">
     <div class="input-wrapper">
-      <input @keypress.enter="SHOW_INPUT" type="text" class="input" />
+      <input
+        v-focus
+        @keypress.enter="SHOW_INPUT"
+        type="text"
+        class="input"
+        :value="GET_CURENT_NAME"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+const focus = {
+  mounted: (el) => el.focus(),
+};
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "RenameInput",
+  directives: {
+    focus,
+  },
+  computed: {
+    ...mapGetters(["GET_CURENT_NAME"]),
+  },
   methods: {
     ...mapActions(["SHOW_INPUT"]),
   },

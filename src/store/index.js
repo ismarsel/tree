@@ -36,6 +36,9 @@ export default createStore({
     GET_INPUT_VISIBLE: (state) => {
       return state.inputVisible;
     },
+    GET_CURENT_NAME: (state) => {
+      return state.curentNode.name;
+    },
   },
   mutations: {
     DELETE_NODE(state, node) {
