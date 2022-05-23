@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-
+// import { findAnddel, filterhelper } from "./common.js";
 export default createStore({
   state: {
     treeNodes: [
@@ -26,6 +26,7 @@ export default createStore({
       { name: "File 2" },
     ],
     newName: "",
+    curentNode: null,
     inputVisible: false,
   },
   getters: {
@@ -39,12 +40,17 @@ export default createStore({
   mutations: {
     DELETE_NODE(state, node) {
       state.treeNodes = state.treeNodes.filter((n) => n.name != node.name);
+
+      // findAnddel(state, node, filterhelper);
     },
     SET_NEW_NAME(state, newName) {
       state.newName = newName;
     },
-    inputOpenClose(state) {
+    CHANGE_INPUT_VISIBLE(state) {
       state.inputVisible = !state.inputVisible;
+    },
+    FIX_CURENT_NODE(state, node) {
+      state.curentNode = node;
     },
   },
   actions: {
@@ -54,8 +60,11 @@ export default createStore({
     SET_NEW_NAME({ commit }, newName) {
       commit("SET_NEW_NAME", newName);
     },
-    inputOpenClose({ commit }) {
-      commit("inputOpenClose");
+    SHOW_INPUT({ commit }) {
+      commit("CHANGE_INPUT_VISIBLE");
+    },
+    FIX_CURENT_NODE({ commit }, node) {
+      commit("FIX_CURENT_NODE", node);
     },
   },
 });

@@ -3,27 +3,31 @@
     <div class="item__content">
       {{ node.name }}
       <div class="item__icons">
-        <span @click="inputOpenClose()" class="item__icons--rename">/</span>
-        <span @click="DELETE_NODE()" class="item__icons--delete">X</span>
+        <span @click="onRename(this.node)" class="item__icons--rename">
+          /
+        </span>
+        <span @click="onDelete" class="item__icons--delete"> X </span>
       </div>
     </div>
     <ul v-if="node.children && node.children.length">
       <node-item
-        v-for="(child, index) in node.children"
-        :key="index"
+        v-for="(child, subIndex) in node.children"
+        :key="subIndex"
         :node="child"
+        :index="subIndex"
+        :parent="node"
       />
     </ul>
   </li>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "NodeItem",
   data() {
     return {
-      openClose: false,
+      papa: null,
     };
   },
   props: {
@@ -31,10 +35,37 @@ export default {
       type: Object,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
+    parent: {
+      type: Object,
+      required: false,
+    },
   },
-  computed: {},
+  computed: {
+    ...mapGetters(["GET_TREE_NODE"]),
+  },
   methods: {
-    ...mapActions(["DELETE_NODE", "inputOpenClose"]),
+    ...mapActions([
+      "SHOW_INPUT",
+      "SET_PARENT_NODE",
+      "DELETE_NODE",
+      "FIX_CURENT_NODE",
+    ]),
+    onDelete() {
+      this.$emit("onDelete", this.node);
+      console.log(`излишки >>>${this.node.name}`);
+      this.DELETE_NODE(this.node);
+    },
+    onRename(x) {
+      this.FIX_CURENT_NODE(x);
+      this.SHOW_INPUT();
+    },
+    onChildDelete() {
+      console.log(this.GET_TREE_NODE);
+    },
   },
 };
 </script>

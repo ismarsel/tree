@@ -1,7 +1,7 @@
 <template>
-  <div @click.self="inputOpenClose" class="overlay">
+  <div @click.self="SHOW_INPUT" class="overlay">
     <div class="input-wrapper">
-      <input @keypress.enter="inputOpenClose" type="text" class="input" />
+      <input @keypress.enter="SHOW_INPUT" type="text" class="input" />
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@ import { mapActions } from "vuex";
 export default {
   name: "RenameInput",
   methods: {
-    ...mapActions(["inputOpenClose"]),
+    ...mapActions(["SHOW_INPUT"]),
   },
 };
 </script>
@@ -19,23 +19,23 @@ export default {
 <style lang="scss" scoped>
 .overlay {
   position: absolute;
-  background: black;
-  opacity: 0.75;
-  width: 100%;
-  height: 100vh;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100vh;
   z-index: 400;
+  background: black;
+  opacity: 0.75;
   transition: opacity 0.8s linear;
 }
 .input-wrapper {
   position: absolute;
   top: 0px;
   left: 50%;
-  background: #ffffff;
-  box-shadow: 1px 1px 11px #444;
   z-index: 450;
   padding: 25px;
+  background: #ffffff;
+  box-shadow: 1px 1px 11px #444;
 }
 .input {
   width: 100%;

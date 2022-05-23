@@ -5,6 +5,7 @@
         v-for="(node, index) in GET_TREE_NODE"
         :key="index"
         :node="node"
+        :index="index"
       />
     </node-list>
   </div>
@@ -30,7 +31,7 @@ export default {
     ...mapGetters(["GET_TREE_NODE", "GET_INPUT_VISIBLE"]),
   },
   methods: {
-    ...mapActions(["SET_NEW_NAME"]),
+    ...mapActions(["SET_NEW_NAME", "DELETE_NODE"]),
   },
 };
 </script>
