@@ -1,15 +1,13 @@
 <template>
   <li class="node-list__item item">
-    <div class="item__content">
+    <div class="item__content" :class="{ bold: isFolder }">
       {{ node.name }}
       <div class="item__icons">
-        <span @click="onRename(this.node)" class="item__icons--rename">
-          /
-        </span>
-        <span @click="onDelete" class="item__icons--delete"> X </span>
+        <span @click="onRename(node)" class="item__icons--rename"> / </span>
+        <span @click="onDelete(node)" class="item__icons--delete"> X </span>
       </div>
     </div>
-    <ul v-if="node.children && node.children.length">
+    <ul v-if="isFolder">
       <node-item
         v-for="(child, subIndex) in node.children"
         :key="subIndex"
@@ -22,13 +20,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "NodeItem",
   data() {
-    return {
-      papa: null,
-    };
+    return {};
   },
   props: {
     node: {
@@ -45,26 +41,19 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["GET_TREE_NODE"]),
+    isFolder() {
+      return this.node.children && this.node.children.length >= 0;
+    },
   },
   methods: {
-    ...mapActions([
-      "SHOW_INPUT",
-      "SET_PARENT_NODE",
-      "DELETE_NODE",
-      "FIX_CURENT_NODE",
-    ]),
-    onDelete() {
-      this.$emit("onDelete", this.node);
-      console.log(`излишки >>>${this.node.name}`);
-      this.DELETE_NODE(this.node);
+    ...mapActions(["SHOW_INPUT", "DELETE_NODE", "FIX_CURENT_NODE"]),
+    onDelete(node) {
+      this.$emit("onDelete", node);
+      this.DELETE_NODE(node);
     },
-    onRename(x) {
-      this.FIX_CURENT_NODE(x);
+    onRename(node) {
+      this.FIX_CURENT_NODE(node);
       this.SHOW_INPUT();
-    },
-    onChildDelete() {
-      console.log(this.GET_TREE_NODE);
     },
   },
 };
@@ -83,6 +72,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-left: auto;
     cursor: pointer;
     & > span {
       width: 25px;
@@ -91,5 +81,8 @@ export default {
       border: 1px #000 solid;
     }
   }
+}
+.bold {
+  font-weight: bold;
 }
 </style>

@@ -25,7 +25,6 @@ export default createStore({
       },
       { name: "File 2" },
     ],
-    newName: "",
     curentNode: null,
     inputVisible: false,
   },
@@ -43,11 +42,9 @@ export default createStore({
   mutations: {
     DELETE_NODE(state, node) {
       state.treeNodes = state.treeNodes.filter((n) => n.name != node.name);
-
       // findAnddel(state, node, filterhelper);
     },
     SET_NEW_NAME(state, newName) {
-      // state.newName = newName;
       state.curentNode.name = newName;
     },
     CHANGE_INPUT_VISIBLE(state) {
