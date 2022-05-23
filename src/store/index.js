@@ -44,7 +44,8 @@ export default createStore({
       // findAnddel(state, node, filterhelper);
     },
     SET_NEW_NAME(state, newName) {
-      state.newName = newName;
+      // state.newName = newName;
+      state.curentNode.name = newName;
     },
     CHANGE_INPUT_VISIBLE(state) {
       state.inputVisible = !state.inputVisible;
