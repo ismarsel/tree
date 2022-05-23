@@ -4,7 +4,20 @@
       {{ node.name }}
       <div class="item__icons">
         <span @click="onRename(node)" class="item__icons--rename"> / </span>
-        <span @click="onDelete(node)" class="item__icons--delete"> X </span>
+        <span
+          v-if="!parent"
+          @click="onDelete(index)"
+          class="item__icons--delete"
+        >
+          X
+        </span>
+        <span
+          v-else
+          @click="onChidDelete(parent, index)"
+          class="item__icons--delete"
+        >
+          x
+        </span>
       </div>
     </div>
     <ul v-if="isFolder">
@@ -46,10 +59,18 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["SHOW_INPUT", "DELETE_NODE", "FIX_CURENT_NODE"]),
-    onDelete(node) {
-      this.$emit("onDelete", node);
-      this.DELETE_NODE(node);
+    ...mapActions([
+      "SHOW_INPUT",
+      "DELETE_NODE",
+      "DELETE_CHILD_NODE",
+      "FIX_CURENT_NODE",
+    ]),
+    onDelete(index) {
+      this.DELETE_NODE(index);
+    },
+    onChidDelete(parent, index) {
+      this.FIX_CURENT_NODE(parent);
+      this.DELETE_CHILD_NODE(index);
     },
     onRename(node) {
       this.FIX_CURENT_NODE(node);

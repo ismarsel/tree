@@ -40,9 +40,13 @@ export default createStore({
     },
   },
   mutations: {
-    DELETE_NODE(state, node) {
-      state.treeNodes = state.treeNodes.filter((n) => n.name != node.name);
+    DELETE_NODE(state, index) {
+      // state.treeNodes = state.treeNodes.filter((n) => n.name != node.name);
       // findAnddel(state, node, filterhelper);
+      state.treeNodes.splice(index, 1);
+    },
+    DELETE_CHILD_NODE(state, index) {
+      state.curentNode.children.splice(index, 1);
     },
     SET_NEW_NAME(state, newName) {
       state.curentNode.name = newName;
@@ -55,8 +59,11 @@ export default createStore({
     },
   },
   actions: {
-    DELETE_NODE({ commit }, node) {
-      commit("DELETE_NODE", node);
+    DELETE_NODE({ commit }, index) {
+      commit("DELETE_NODE", index);
+    },
+    DELETE_CHILD_NODE({ commit }, index) {
+      commit("DELETE_CHILD_NODE", index);
     },
     SET_NEW_NAME({ commit }, newName) {
       commit("SET_NEW_NAME", newName);
