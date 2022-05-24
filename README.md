@@ -1,24 +1,13 @@
-# tree
-
-## Project setup
+# Дерево файлоов и папок
+## Вывод иерархической структы в виде дерева папок и файлов.
+Папки, файлы можно удалять и переименовывать.
+### Сделано на Vue3 c использованием Vuex
+Рекурсивный компонент
+http://host1845021.hostland.pro
+### Запуск проекта  
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
