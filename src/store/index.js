@@ -1,5 +1,4 @@
 import { createStore } from "vuex";
-// import { findAnddel, filterhelper } from "./common.js";
 export default createStore({
   state: {
     treeNodes: [
@@ -41,8 +40,6 @@ export default createStore({
   },
   mutations: {
     DELETE_NODE(state, index) {
-      // state.treeNodes = state.treeNodes.filter((n) => n.name != node.name);
-      // findAnddel(state, node, filterhelper);
       state.treeNodes.splice(index, 1);
     },
     DELETE_CHILD_NODE(state, index) {

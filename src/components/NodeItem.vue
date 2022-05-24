@@ -1,23 +1,15 @@
 <template>
   <li class="node-list__item item">
     <div class="item__content" :class="{ bold: isFolder }">
-      {{ node.name }}
+      <component :is="iconComponent" />{{ node.name }}
       <div class="item__icons">
-        <span @click="onRename(node)" class="item__icons--rename"> / </span>
-        <span
-          v-if="!parent"
-          @click="onDelete(index)"
-          class="item__icons--delete"
-        >
-          X
-        </span>
-        <span
+        <rename-button @click="onRename(node)" class="icon" />
+        <delete-button v-if="!parent" @click="onDelete(index)" class="icon" />
+        <delete-button
           v-else
           @click="onChidDelete(parent, index)"
-          class="item__icons--delete"
-        >
-          x
-        </span>
+          class="icon"
+        />
       </div>
     </div>
     <ul v-if="isFolder">
@@ -34,10 +26,20 @@
 
 <script>
 import { mapActions } from "vuex";
+import DeleteButton from "./UI/DeleteButton.vue";
+import RenameButton from "./UI/RenameButton.vue";
+import IconFolder from "./UI/IconFolder.vue";
+import IconFile from "./UI/IconFile.vue";
 export default {
   name: "NodeItem",
   data() {
     return {};
+  },
+  components: {
+    DeleteButton,
+    RenameButton,
+    IconFolder,
+    IconFile,
   },
   props: {
     node: {
@@ -56,6 +58,9 @@ export default {
   computed: {
     isFolder() {
       return this.node.children && this.node.children.length >= 0;
+    },
+    iconComponent() {
+      return this.isFolder ? "icon-folder" : "icon-file";
     },
   },
   methods: {
@@ -82,25 +87,22 @@ export default {
 
 <style lang="scss" scoped>
 .item {
+  position: relative;
   padding-left: 10px;
+  &__wrapper {
+    display: flex;
+  }
   &__content {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   &__icons {
-    width: 55px;
+    width: 65px;
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: space-between;
     margin-left: auto;
-    cursor: pointer;
-    & > span {
-      width: 25px;
-      height: 25px;
-      text-align: center;
-      border: 1px #000 solid;
-    }
   }
 }
 .bold {

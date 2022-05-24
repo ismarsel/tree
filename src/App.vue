@@ -1,18 +1,18 @@
 <template>
-  <div class="container">
-    <node-list>
-      <node-item
-        v-for="(node, index) in GET_TREE_NODE"
-        :key="index"
-        :node="node"
-        :index="index"
-      />
-    </node-list>
-  </div>
-  <rename-input
-    v-if="GET_INPUT_VISIBLE"
-    @keypress.enter="SET_NEW_NAME($event.target.value)"
-  />
+  <main>
+    <div class="container">
+      <h1 class="title">Дерево файлов и папок</h1>
+      <node-list>
+        <node-item
+          v-for="(node, index) in GET_TREE_NODE"
+          :key="index"
+          :node="node"
+          :index="index"
+        />
+      </node-list>
+    </div>
+    <rename-input v-if="GET_INPUT_VISIBLE" />
+  </main>
 </template>
 
 <script>
@@ -41,6 +41,10 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+}
+.title {
+  padding: 1em 0;
+  margin: 0 auto;
+  text-align: center;
 }
 </style>

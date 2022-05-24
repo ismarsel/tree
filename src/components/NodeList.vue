@@ -1,6 +1,6 @@
 <template>
   <ul class="node-list">
-    <slot></slot>
+    <slot><button>// todo добавить</button></slot>
   </ul>
 </template>
 
